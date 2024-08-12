@@ -4,9 +4,10 @@ detect faces and draw a box around them
 import sys
 import cv2
 import face_recognition
-CAMINDEX = 0
-#get webcam
-cap = cv2.VideoCapture(CAMINDEX)
+import functions
+
+cap = functions.CameraConnection()
+
 while True:
     q , frame = cap.read()
     #detect the faces

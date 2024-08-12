@@ -12,4 +12,4 @@ Alternatively setting up a virtual environment and using `sudo pip install -r re
 
 Run `python main.py` to detect faces.
 
-In both files change the CAMINDEX to be the index of camera you are using.
+In functions.py change the default CAMINDEX in the CameraConnection Function to the correct camera index.
