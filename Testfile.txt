@@ -1,4 +1,4 @@
 Test
 
-a random change to the file
+A random change to the file.
 
