@@ -1,22 +1,21 @@
-import cv2, face_recognition
+"""
+detect faces and draw a box around them
+"""
+import sys
+import cv2
+import face_recognition
+CAMINDEX = 0
 #get webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(CAMINDEX)
 while True:
-	q , frame = cap.read()
-	#detect the faces
-	for top,right,bottom,left in face_recognition.face_locations(frame):
-		
-		#draw rectangle around faces
-		cv2.rectangle(frame,(left,top),(right,bottom),(0,255,0), 5) 
-	
-	
-	
-	
-	#shows the image
-	cv2.imshow("window",frame)
-	#quit if q is pressed
-	if cv2.waitKey(1) == ord("q"):
-		break
+    q , frame = cap.read()
+    #detect the faces
+    for top,right,bottom,left in face_recognition.face_locations(frame):
+        cv2.rectangle(frame,(left,top),(right,bottom),(0,255,0), 5)
+
+    cv2.imshow("window",frame)
+    if cv2.waitKey(1) == ord("q"):
+        break
 
 cv2.destroyAllWindows()
-quit()
+sys.exit()

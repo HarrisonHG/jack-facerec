@@ -1,3 +1,4 @@
 imutils
 opencv-python
 face-recognition
+pylint
