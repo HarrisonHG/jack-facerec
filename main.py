@@ -6,7 +6,7 @@ import cv2
 import face_recognition
 import functions
 
-cap = functions.CameraConnection()
+cap = functions.camera_connection()
 
 while True:
     q , frame = cap.read()

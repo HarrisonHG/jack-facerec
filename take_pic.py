@@ -10,7 +10,7 @@ import cv2
 import face_recognition
 import functions
 
-cap = functions.CameraConnection()
+cap = functions.camera_connection()
 
 #saved as two arrays as the function later requires an array to search through
 encodings = []
