@@ -4,12 +4,9 @@ Holds all functions for the code
 import sys
 import cv2
 
-
-
 def camera_connection(camindex = 0):
     '''
     handles all connections to the camera and errors
-    the camera index can be changed by changing the default CAMINDEX value
     '''
     try:
         cap = cv2.VideoCapture(camindex)
@@ -21,3 +18,7 @@ def camera_connection(camindex = 0):
         print("Camera is not valid, are you sure its plugged in or in use?")
         sys.exit(1)
     return cap
+
+if __name__ == "__main__":
+    print("This module is not intended to be run directly. Please see main.py")
+    sys.exit(1)

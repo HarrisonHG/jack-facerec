@@ -9,8 +9,9 @@ import pickle
 import cv2
 import face_recognition
 import functions
+CAMINDEX = 0
 
-cap = functions.camera_connection()
+cap = functions.camera_connection(CAMINDEX)
 
 #saved as two arrays as the function later requires an array to search through
 encodings = []

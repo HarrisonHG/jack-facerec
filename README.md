@@ -13,3 +13,5 @@ Alternatively setting up a virtual environment and using `sudo pip install -r re
 Run `python main.py` to detect faces.
 
 In functions.py change the default camindex in the CameraConnection Function to the correct camera index.
+
+Run `python take_pic.py` to take images of faces and record them with names.
