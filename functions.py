@@ -6,7 +6,9 @@ import cv2
 
 def camera_connection(camindex = 0):
     '''
-    handles all connections to the camera and errors
+    handles all connections to the camera and errors 
+    camindex is the index of the camera as according to the OS
+    returns a cv2 videocapture device
     '''
     try:
         cap = cv2.VideoCapture(camindex)
