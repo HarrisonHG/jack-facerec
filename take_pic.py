@@ -8,9 +8,19 @@ import sys
 import pickle
 import cv2
 import face_recognition
+
 CAMINDEX = 0
-#get webcam
-cap = cv2.VideoCapture(CAMINDEX)
+try:
+    cap = cv2.VideoCapture(CAMINDEX)
+    ret,frame = cap.read()
+    #check if an image can be formed
+    if not ret:
+        raise ValueError("camera not responding")
+except ValueError as error:
+    print("Camera is not valid, are you sure its plugged in or in use?")
+    sys.exit(1)
+
+#saved as two arrays as the function later requires an array to search through
 encodings = []
 names = []
 
@@ -29,10 +39,9 @@ while True:
         break
 
 cv2.destroyAllWindows()
-with open("encodings.pickle","wb") as f:
-    pickle.dump(encodings, f)
+with open("data.pickle","wb") as f:
+    data = {"encodings":encodings,"names":names}
+    pickle.dump(data, f)
     f.close()
-with open("names.pickle","wb") as f:
-    pickle.dump(names, f)
-    f.close()
-sys.exit()
+
+sys.exit(0)
