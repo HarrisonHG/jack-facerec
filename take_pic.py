@@ -8,17 +8,10 @@ import sys
 import pickle
 import cv2
 import face_recognition
-
+import functions
 CAMINDEX = 0
-try:
-    cap = cv2.VideoCapture(CAMINDEX)
-    ret,frame = cap.read()
-    #check if an image can be formed
-    if not ret:
-        raise ValueError("camera not responding")
-except ValueError as error:
-    print("Camera is not valid, are you sure its plugged in or in use?")
-    sys.exit(1)
+
+cap = functions.camera_connection(CAMINDEX)
 
 #saved as two arrays as the function later requires an array to search through
 encodings = []
@@ -27,7 +20,6 @@ names = []
 while True:
     ret, frame = cap.read()
     cv2.imshow("window",frame)
-    #quit if q is pressed
     x = cv2.waitKey(1)
 
     if x == ord("p"):
