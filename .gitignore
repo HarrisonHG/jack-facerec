@@ -1,1 +1,2 @@
 *.pickle
+face_recognition_models/*
