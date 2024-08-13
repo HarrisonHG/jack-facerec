@@ -5,17 +5,20 @@ import sys
 import pickle
 import cv2
 import face_recognition
-CAMINDEX = 0
-font = cv2.FONT_HERSHEY_SIMPLEX
-FONTSCALE = 1
-textcolor = (255, 0, 0)
-#get webcam
-cap = cv2.VideoCapture(CAMINDEX)
-with open("encodings.pickle", "rb") as f:
-    data = pickle.load(f)
+import functions
 
+CAMINDEX = 0
+SAVE_FILE = "encodings.pickle"
+FONT = cv2.FONT_HERSHEY_SIMPLEX
+FONTSCALE = 1
+TEXTCOLOUR = (255, 0, 0)
+
+with open(SAVE_FILE, "rb") as f:
+    data = pickle.load(f)
 Knownencodings = data["encodings"]
 names = data["names"]
+
+cap = functions.camera_connection(CAMINDEX)
 
 while True:
     q , frame = cap.read()
@@ -32,8 +35,8 @@ while True:
             print("BOXES",boxes)
             top,right,bottom,left = boxes[0]
             cv2.rectangle(frame, (left,top), (right,bottom) , (0,255,0), 4)
-            image = cv2.putText(frame, names[e], (left-20,top-20), font, FONTSCALE,
-            textcolor, 1, cv2.LINE_AA, False)
+            image = cv2.putText(frame, names[e], (left-20,top-20), FONT, FONTSCALE,
+            TEXTCOLOUR, 1, cv2.LINE_AA, False)
 
     cv2.imshow("window",frame)
     if cv2.waitKey(1) == ord("q"):

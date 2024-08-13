@@ -1,2 +1,4 @@
 dataset
 *.pickle
+face_recognition_models
+__pycache__
