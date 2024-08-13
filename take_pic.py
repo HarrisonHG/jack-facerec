@@ -9,6 +9,11 @@ import pickle
 import cv2
 import face_recognition
 import functions
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 CAMINDEX = 0
 
 cap = functions.camera_connection(CAMINDEX)
@@ -17,6 +22,7 @@ cap = functions.camera_connection(CAMINDEX)
 encodings = []
 names = []
 
+logger.info("Ready for encoding. Press p to take a picture and q to quit.")
 while True:
     ret, frame = cap.read()
     cv2.imshow("window",frame)
@@ -30,10 +36,13 @@ while True:
     elif  x == ord("q"):
         break
 
-cv2.destroyAllWindows()
+logger.debug("Exit button pressed. Pickling the images...")
 with open("data.pickle","wb") as f:
     data = {"encodings":encodings,"names":names}
     pickle.dump(data, f)
     f.close()
+    logger.debug("Images pickled successfully to: " + f.name)
 
+logger.debug("Exiting...")
+cv2.destroyAllWindows()
 sys.exit(0)
