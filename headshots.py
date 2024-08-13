@@ -1,11 +1,19 @@
 import cv2
+import os
 
-name = 'donkeykong' #replace with your name
+DATASET_FOLDER = "dataset"
+NAME = 'donkeykong' #replace with your name
 
 cam = cv2.VideoCapture(0)
 
 cv2.namedWindow("press space to take a photo", cv2.WINDOW_NORMAL)
 cv2.resizeWindow("press space to take a photo", 500, 300)
+
+if no os.path_exists(DATASET_FOLDER):
+    os.makedirs(DATASET_FOLDER)
+    
+if no os.path_exists(NAME):
+    os.makedirs(NAME)
 
 img_counter = 0
 
