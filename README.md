@@ -25,4 +25,4 @@ Run `python headshots.py` to compile a document of images for training to use ru
 
 Run `python train_model.py` to format the data for the code to use.
 
-
+In order to run with discord notifications please create a bot and save the token to a file called secretkey.txt in the directory then run `python main-withdc.py`
