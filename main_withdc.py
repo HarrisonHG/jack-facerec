@@ -2,12 +2,13 @@
 import os
 import sys
 import pickle
+import time
+import datetime
 import cv2
 import face_recognition
 import discord
 import functions
-import time
-import datetime
+
 CAMINDEX = 0
 SAVE_FILE = "encodings.pickle"
 FONT = cv2.FONT_HERSHEY_SIMPLEX
@@ -29,7 +30,7 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 @client.event
-async def on_ready():# pylint: disable=too-many-locals
+async def on_ready():# pylint: disable=too-many-locals,too-many-branches
     ''' runs the face recognition here'''
     prevmessage = ""
     print(f"{client.user} logged in")
@@ -97,6 +98,6 @@ async def send_msg(content="test",  channel = 1273223262213505058):
     '''outputs messages to discord'''
     channel = client.get_channel(channel)
     await channel.send(str(content))
-with open("secretkey.txt", "r") as f:
-        key = f.read()
+with open("secretkey.txt", encoding ="utf-8") as f:
+    key = f.read()
 client.run(key)
