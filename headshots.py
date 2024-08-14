@@ -1,5 +1,8 @@
-import cv2
+'''
+This code takes pictures of the user its recommended to take multiple per person
+'''
 import os
+import cv2
 import functions
 
 DATASET_FOLDER = "dataset"
@@ -10,7 +13,7 @@ cam = functions.camera_connection(CAMINDEX)
 
 if not os.path.exists(DATASET_FOLDER):
     os.makedirs(DATASET_FOLDER)
-    
+
 if not os.path.exists(DATASET_FOLDER+"/"+NAME):
     os.makedirs(DATASET_FOLDER +"/"+ NAME)
 
@@ -33,7 +36,7 @@ while True:
         # ESC pressed
         print("Escape hit, closing...")
         break
-    elif k%256 == 32:
+    if k%256 == 32:
         # SPACE pressed
         img_name = DATASET_FOLDER+"/"+ NAME +"/image_{}.jpg".format(img_counter)
         cv2.imwrite(img_name, frame)

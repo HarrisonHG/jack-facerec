@@ -20,8 +20,6 @@ if not os.path.exists(SAVE_FILE):
 else:
     with open(SAVE_FILE, "rb") as f:
         data = pickle.load(f)
-    
-    
 Knownencodings = data["encodings"]
 names = data["names"]
 
@@ -36,13 +34,14 @@ while True:
     for x,encoding in enumerate(encodings):
         matches = face_recognition.compare_faces(Knownencodings,encoding, tolerance = TOLERANCE)
         print(matches)
-        if matches == []:
-            for i in boxes: matches.append(False)
+        if not matches:
+            for i in boxes:
+                matches.append(False)
         for e,i in enumerate(matches):
             print("BOXES:",boxes)
             top,right,bottom,left = boxes[x]
             cv2.rectangle(frame, (left,top), (right,bottom) , (0,255,0), 4)
-            
+
             if i:
                 foundnames.append(names[e])
                 image = cv2.putText(frame, names[e], (left-20,top-20), FONT, FONTSCALE,
