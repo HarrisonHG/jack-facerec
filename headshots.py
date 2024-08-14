@@ -6,9 +6,10 @@ import cv2
 import functions
 
 DATASET_FOLDER = "dataset"
-NAME = 'user2' #replace with your name
+name = input("your name") #replace with your name
 CAMINDEX = 0
-
+WINDOW_WIDTH=500
+WINDOW_HEIGHT=300
 cam = functions.camera_connection(CAMINDEX)
 
 if not os.path.exists(DATASET_FOLDER):
@@ -18,11 +19,11 @@ if not os.path.exists(DATASET_FOLDER+"/"+NAME):
     os.makedirs(DATASET_FOLDER +"/"+ NAME)
 
 cv2.namedWindow("press space to take a photo", cv2.WINDOW_NORMAL)
-cv2.resizeWindow("press space to take a photo", 500, 300)
+cv2.resizeWindow("press space to take a photo", WINDOW_WIDTH, WINDOW_HEIGHT)
 
 
 
-img_counter = 0
+img_counter = 0# pylint: disable=invalid-name
 
 while True:
     ret, frame = cam.read()
@@ -38,9 +39,9 @@ while True:
         break
     if k%256 == 32:
         # SPACE pressed
-        img_name = DATASET_FOLDER+"/"+ NAME +"/image_{}.jpg".format(img_counter)
+        img_name = f"{DATASET_FOLDER}/{NAME}/image_{img_counter}.jpg"
         cv2.imwrite(img_name, frame)
-        print("{} written!".format(img_name))
+        print(f"{img_name} written!")
         img_counter += 1
 
 cv2.destroyAllWindows()

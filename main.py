@@ -4,6 +4,7 @@ detect faces and draw a box around them
 import os
 import sys
 import pickle
+import time
 import cv2
 import face_recognition
 import functions
@@ -14,13 +15,14 @@ FONT = cv2.FONT_HERSHEY_SIMPLEX
 FONTSCALE = 1
 TEXTCOLOUR = (255, 0, 0)
 TOLERANCE = 0.4
+
 if not os.path.exists(SAVE_FILE):
     data = {"encodings":[],"names":[]}
     print("No encoding file exists running face detection only")
 else:
     with open(SAVE_FILE, "rb") as f:
         data = pickle.load(f)
-Knownencodings = data["encodings"]
+known_encodings = data["encodings"]
 names = data["names"]
 
 cap = functions.camera_connection(CAMINDEX)
@@ -32,13 +34,12 @@ while True:
     matches = []
     foundnames = []
     for x,encoding in enumerate(encodings):
-        matches = face_recognition.compare_faces(Knownencodings,encoding, tolerance = TOLERANCE)
+        matches = face_recognition.compare_faces(known_encodings,encoding, tolerance = TOLERANCE)
         print(matches)
         if not matches:
             for i in boxes:
                 matches.append(False)
         for e,i in enumerate(matches):
-            print("BOXES:",boxes)
             top,right,bottom,left = boxes[x]
             cv2.rectangle(frame, (left,top), (right,bottom) , (0,255,0), 4)
 
@@ -55,6 +56,6 @@ while True:
     cv2.imshow("window",frame)
     if cv2.waitKey(1) == ord("q"):
         break
-
+    time.sleep(0.1)
 cv2.destroyAllWindows()
 sys.exit()
