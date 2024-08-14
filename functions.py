@@ -5,6 +5,7 @@ import sys
 import cv2
 import logging
 
+# Log level should be set in the main script
 logger = logging.getLogger(__name__)
 
 def camera_connection(camindex = 0):

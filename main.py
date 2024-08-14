@@ -9,6 +9,10 @@ import cv2
 import face_recognition
 import functions
 
+# Logging levels affect many dependencies as well as current script.
+# Change the verbosity of logs by changing the level to one of the following:
+# CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
+# Whatever level is set, that level and all levels more severe it will be logged.
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -32,7 +36,7 @@ while True:
     encodings = face_recognition.face_encodings(frame, boxes)
     face_count = len(encodings)
     if face_count > 0:
-        logger.Debug("Faces detected: " + str(face_count))
+        logger.debug("Faces detected: " + str(face_count))
     else:
         # No face detected, so save some CPU cycles
         time.sleep(0.01)
