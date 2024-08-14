@@ -3,7 +3,7 @@ import os
 import functions
 
 DATASET_FOLDER = "dataset"
-NAME = 'donkeykong' #replace with your name
+NAME = 'user2' #replace with your name
 CAMINDEX = 0
 
 cam = functions.camera_connection(CAMINDEX)
