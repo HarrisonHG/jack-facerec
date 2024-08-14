@@ -53,13 +53,14 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches
             if not matches:
                 for i in boxes:
                     matches.append(False)
+            found = "Unknown"
             for matchnum,i in enumerate(matches):
                 top,right,bottom,left = boxes[facenum]
                 cv2.rectangle(frame, (left,top), (right,bottom) , (0,255,0), 4)
-                found = "Unknown"
+                
                 if i:
                     found = names[matchnum]
-                    frame = cv2.putText(frame, names[matchnum], (left-20,top-20), FONT, FONTSCALE,
+                    frame = cv2.putText(frame, found, (left-20,top-20), FONT, FONTSCALE,
                     TEXTCOLOUR, 1, cv2.LINE_AA, False)
                 elif True not in matches:
                     frame = cv2.putText(frame, "Unknown", (left-20,top-20), FONT, FONTSCALE,
