@@ -8,6 +8,7 @@ import pickle
 import cv2
 import face_recognition
 import functions
+import os
 
 # Logging levels affect many dependencies as well as current script.
 # Change the verbosity of logs by changing the level to one of the following:
