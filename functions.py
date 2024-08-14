@@ -3,6 +3,10 @@ Holds all functions for the code
 '''
 import sys
 import cv2
+import logging
+
+# Log level should be set in the main script
+logger = logging.getLogger(__name__)
 
 def camera_connection(camindex = 0):
     '''
@@ -16,8 +20,11 @@ def camera_connection(camindex = 0):
         #check if an image can be formed
         if not ret:
             raise ValueError("camera not responding")
+        
+        # If we reach this point the camera has connected successfully
+        logger.debug("Camera connected at index: " + str(camindex))
     except ValueError:
-        print("Camera is not valid, are you sure its plugged in or in use?")
+        logger.warning("Camera is not valid, are you sure its plugged in or in use?")
         sys.exit(1)
     return cap
 
