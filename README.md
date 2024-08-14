@@ -21,7 +21,7 @@ Run `python main.py` to detect faces once all other steps have been done.
 
 In both files change the CAMINDEX to be the index of camera you are using.
 
-Run `python headshots.py` to compile a document of images in the file replace the value in name with the NAME of the person.
+Run `python headshots.py` to compile a document of images for training to use run and type the name of the person when prompted.
 
 Run `python train_model.py` to format the data for the code to use.
 
