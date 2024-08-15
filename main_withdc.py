@@ -3,11 +3,19 @@ import os
 import sys
 import pickle
 import time
+import logging
 import datetime
 import cv2
 import face_recognition
 import discord
 import functions
+
+# Logging levels affect many dependencies as well as current script.
+# Change the verbosity of logs by changing the level to one of the following:
+# CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
+# Whatever level is set, that level and all levels more severe it will be logged.
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 CAMINDEX = 0
 SAVE_FILE = "encodings.pickle"
@@ -15,6 +23,7 @@ FONT = cv2.FONT_HERSHEY_SIMPLEX
 FONTSCALE = 1
 TEXTCOLOUR = (255, 0, 0)
 TOLERANCE = 0.4
+
 if not os.path.exists(SAVE_FILE):
     data = {"encodings":[],"names":[]}
     print("No encoding file exists running face detection only")
@@ -23,7 +32,6 @@ else:
         data = pickle.load(f)
     Knownencodings = data["encodings"]
     names = data["names"]
-
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -101,4 +109,5 @@ async def send_msg(content="test",  channel = 1273223262213505058):
     await channel.send(str(content))
 with open("secretkey.txt", encoding ="utf-8") as f:
     key = f.read()
+
 client.run(key)
