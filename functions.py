@@ -31,3 +31,9 @@ def camera_connection(camindex = 0):
 if __name__ == "__main__":
     print("This module is not intended to be run directly. Please see main.py")
     sys.exit(1)
+
+def removevalue(array,value = "Unknown"):
+	for i in array:
+		if i == value:
+			array.remove(i)
+	return array
