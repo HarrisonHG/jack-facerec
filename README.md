@@ -21,8 +21,8 @@ Run `python main.py` to detect faces once all other steps have been done.
 
 In both files change the CAMINDEX to be the index of camera you are using.
 
-Run `python headshots.py` to compile a document of images in the file replace the value in name with the NAME of the person.
+Run python headshots.py to compile a collection of images for encoding. When prompted, type the name of the person in front of the camera.
 
 Run `python train_model.py` to format the data for the code to use.
 
-
+In order to run with discord notifications please create a bot and save the token to a file called secretkey.txt in the directory then run `python main-withdc.py`

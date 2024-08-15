@@ -2,3 +2,4 @@ dataset
 *.pickle
 face_recognition_models
 __pycache__
+secretkey.txt
