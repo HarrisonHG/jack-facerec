@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 '''
 This code takes pictures of the user its recommended to take multiple per person
 '''
@@ -23,7 +25,7 @@ TEXTCOLOUR = (255, 255, 255)
 WINDOW_NAME = "press space to take a photo"
 
 cam = functions.camera_connection(CAMINDEX)
-name = input("Please enter the name you are booking in with, and then press Enter: ") #replace with your name
+name = input("Please enter the name you are booking in with, and then press Enter: ")
 
 cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_FULLSCREEN)
 #cv2.resizeWindow("press space to take a photo", WINDOW_WIDTH, WINDOW_HEIGHT)
@@ -41,13 +43,16 @@ while True:
     if not ret:
         logger.error("Failed to grab frame. Please check camera connection.")
         break
-    frame = cv2.putText(frame, "Position your face central and unobscured in front of the camera.", (10,int(20*FONTSCALE+400)), FONT, FONTSCALE,
+    frame = cv2.putText(frame, "Position your face central and unobscured in front of the camera.",
+    (10,int(20*FONTSCALE+400)), FONT, FONTSCALE,
             TEXTCOLOUR, 1, cv2.LINE_AA, False)
-    frame = cv2.putText(frame, "Press space to take photo, we recommend take at least 5.", (10,int(50*FONTSCALE+400)), FONT, FONTSCALE,
+    frame = cv2.putText(frame, "Press space to take photo, we recommend take at least 5.",
+    (10,int(50*FONTSCALE+400)), FONT, FONTSCALE,
             TEXTCOLOUR, 1, cv2.LINE_AA, False)
-    frame = cv2.putText(frame, "Once you are finished press Esc.", (10,int(80*FONTSCALE+400)), FONT, FONTSCALE,
+    frame = cv2.putText(frame, "Once you are finished press Esc.",
+    (10,int(80*FONTSCALE+400)), FONT, FONTSCALE,
             TEXTCOLOUR, 1, cv2.LINE_AA, False)
-            
+
     functions.loading_bar(frame,WINDOW_WIDTH,5,img_counter,0)
     cv2.imshow(WINDOW_NAME, frame)
 
@@ -55,11 +60,14 @@ while True:
     if k%256 == 27:
         # ESC pressed
         frame = train_model.train_model(WINDOW_NAME,functions.load_and_show,frame,WINDOW_WIDTH)
-        frame = cv2.putText(frame, "Biometric profile generation completed", (10,int(50*FONTSCALE+100)), FONT, FONTSCALE,
+        frame = cv2.putText(frame, "Biometric profile generation completed",
+        (10,int(50*FONTSCALE+100)), FONT, FONTSCALE,
             TEXTCOLOUR, 1, cv2.LINE_AA, False)
-        frame = cv2.putText(frame, "You can now be recognised at the door", (10,int(80*FONTSCALE+100)), FONT, FONTSCALE,
+        frame = cv2.putText(frame, "You can now be recognised at the door",
+        (10,int(80*FONTSCALE+100)), FONT, FONTSCALE,
             TEXTCOLOUR, 1, cv2.LINE_AA, False)
-        frame = cv2.putText(frame, "Press any key to close", (10,int(110*FONTSCALE+100)), FONT, FONTSCALE,
+        frame = cv2.putText(frame, "Press any key to close",
+        (10,int(110*FONTSCALE+100)), FONT, FONTSCALE,
             TEXTCOLOUR, 1, cv2.LINE_AA, False)
         cv2.imshow(WINDOW_NAME, frame)
         cv2.waitKey(0)

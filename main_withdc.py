@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """This runs main and outputs it to discord"""
 import os
 import sys
@@ -90,7 +92,6 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches,too-man
             foundnames.append(found)
             if not REPORT_UNKNOWNS:
                 foundnames = functions.removevalue(foundnames,"Unknown")
-                
         logger.debug("Found: %s",foundnames)
         empty = True
         if len(foundnames) == 0:
@@ -111,8 +112,8 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches,too-man
             if (empty and REPORT_NONE) or not empty:
                 date_time = datetime.datetime.now().strftime("%H:%M")
                 await send_msg(f"{message} has arrived at the door at {date_time}.")
-                
-        cv2.imshow("window",frame) #remove once discord prints
+        if SHOW_BOXES:
+            cv2.imshow("window",frame) #remove once discord prints
         if cv2.waitKey(1) == ord("q"):
             logger.info("Q pressed. Exiting...")
             break

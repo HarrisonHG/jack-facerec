@@ -15,6 +15,7 @@ In order to run with discord notifications please create a bot and save the toke
 # Configuration
 
 In `main_withdc.py` and `take_pic.py`, you can find the configuration variables, such as cam index and window dimensions at the top of each file.
+In order to make the files execute on a double click run `cmod +x headshots.py` and `cmod +x main_withdc.py`
 
 # Usage
 
