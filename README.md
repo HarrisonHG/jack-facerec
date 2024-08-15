@@ -22,10 +22,11 @@ In `main_withdc.py` and `take_pic.py`, you can find the configuration variables,
 To allow your guests to be recognised when they come to your door they must first be enrolled into the system.
 This is done by taking pictures using `headshots.py` with a connected camera which will take many different angles of the guest's face to build a biometric profile of the guest.
 
-To begin the proccess open terminal and run `python headshots.py`.
-Press **space** to take a picture. Do this **at least 5 times** positioning your head at different angles each time. You can do this as many times as you like to improve your chances of recognition.
-When you are finished, press **Esc** to build your biometric profile.
-When this is complete the program will exit and you will be ready to sign in with face recognition.
+1. To begin the proccess open terminal and run `python headshots.py`.
+2. Enter your name into the terminal and press **Enter**.
+3. Press **space** to take a picture. Do this **at least 5 times** positioning your head at different angles each time. You can do this as many times as you like to improve your chances of recognition.
+4. When you are finished, press **Esc** to build your biometric profile.
+5. When this is complete the program will exit and you will be ready to sign in with face recognition.
 _________________________________________________
 Run `python train_model.py` to format the data for the code to use.
 
