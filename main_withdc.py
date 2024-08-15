@@ -23,8 +23,8 @@ FONT = cv2.FONT_HERSHEY_SIMPLEX
 FONTSCALE = 1
 TEXTCOLOUR = (255, 0, 0)
 TOLERANCE = 0.4
-REPORT_UNKNOWNS = True
-REPORT_NONE = True
+REPORT_UNKNOWNS = False
+REPORT_NONE = False
 SHOW_BOXES = True
 
 if not os.path.exists(SAVE_FILE):
@@ -89,7 +89,8 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches,too-man
 
             foundnames.append(found)
             if not REPORT_UNKNOWNS:
-                foundnames = functions.removevalue(foundnames)
+                foundnames = functions.removevalue(foundnames,"Unknown")
+                
         logger.debug("Found: %s",foundnames)
         empty = True
         if len(foundnames) == 0:
@@ -105,11 +106,12 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches,too-man
                     message = message+f" And {i}"
 
         if prevmessage != foundnames:
-            prevmessage = foundnames
-            message = message + " "+str(datetime.datetime.now())
+            if (not REPORT_NONE and len(foundnames) > 0) or (REPORT_NONE):
+                prevmessage = foundnames
             if (empty and REPORT_NONE) or not empty:
-                await send_msg(f"Found {message}")
-
+                date_time = datetime.datetime.now().strftime("%H:%M")
+                await send_msg(f"{message} has arrived at the door at {date_time}.")
+                
         cv2.imshow("window",frame) #remove once discord prints
         if cv2.waitKey(1) == ord("q"):
             logger.info("Q pressed. Exiting...")
