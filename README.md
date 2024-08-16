@@ -29,13 +29,13 @@ This is done by taking pictures using `headshots.py` with a connected camera whi
 4. When you are finished, press **Esc** to build your biometric profile.
 5. When this is complete the program will exit and you will be ready to sign in with face recognition.
 _________________________________________________
-Run `python train_model.py` to format the data for the code to use.
 
 ## Recognition
 When you are expecting your enrolled guest open terminal once more and run `python main_withdc.py`.
 Leave this in the background and continue on with your work.
 
 When your guest arrives they just need to look at the camera and you will recieve a notification via the [Facerecognition discord](https://discord.gg/YVC8CTpg).
+In order to shutdown the program type in the discord !shutdown (not case sensitive) be aware this could take some time.
 
 
 

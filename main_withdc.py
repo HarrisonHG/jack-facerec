@@ -30,6 +30,7 @@ REPORT_UNKNOWNS = False
 REPORT_NONE = False
 SHOW_BOXES = True
 SHOW_WINDOW = False
+RETRIGGERDELAY = 30
 
 if not os.path.exists(SAVE_FILE):
     data = {"encodings":[],"names":[]}
@@ -54,6 +55,7 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches,too-man
     logger.debug("Begin face detection...")
     run = True
     while run:
+        logger.debug("loop run")
         ret , frame = cap.read()
         if not ret:
             logger.info("couldnt get picture")
@@ -111,7 +113,7 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches,too-man
         for name in foundnames:
             for _ in range(0,foundnames.count(name)-1):
                 foundnames.remove(name)# pylint: disable = modified-iterating-list
-        if time.time() - message_time >= 10:
+        if time.time() - message_time >= RETRIGGERDELAY:
             prevmessage = []
 
         if prevmessage != foundnames:
@@ -131,7 +133,7 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches,too-man
         if cv2.waitKey(1) == ord("q"):
             logger.info("Q pressed. Exiting...")
             break
-        time.sleep(0.1)
+        time.sleep(0.2)
 
     cv2.destroyAllWindows()
     sys.exit()
@@ -142,6 +144,7 @@ async  def on_message(message):
     if not message.author.bot:
         logger.info("recieved %s", message.content)
         if message.content.lower() == "!shutdown":
+            await send_msg("Shutting Down...")
             sys.exit(0)
 
 @client.event
