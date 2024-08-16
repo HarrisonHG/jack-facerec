@@ -49,10 +49,11 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches,too-man
     ''' runs the face recognition here'''
     prevmessage = ""
     logger.debug("%s logged in",client.user)
-
+    message_time = 0
     cap = functions.camera_connection(CAMINDEX)
     logger.debug("Begin face detection...")
-    while True:
+    run = True
+    while run:
         ret , frame = cap.read()
         if not ret:
             logger.info("couldnt get picture")
@@ -110,9 +111,12 @@ async def on_ready():# pylint: disable=too-many-locals,too-many-branches,too-man
         for name in foundnames:
             for _ in range(0,foundnames.count(name)-1):
                 foundnames.remove(name)# pylint: disable = modified-iterating-list
+        if time.time() - message_time >= 10:
+            prevmessage = []
 
         if prevmessage != foundnames:
             if (not REPORT_NONE and len(foundnames) > 0) or (REPORT_NONE):
+                message_time = time.time()
                 prevmessage = foundnames
             if (empty and REPORT_NONE) or not empty:
                 date_time = datetime.datetime.now().strftime("%H:%M")
