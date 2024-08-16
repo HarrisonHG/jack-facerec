@@ -5,6 +5,7 @@ This code takes pictures of the user its recommended to take multiple per person
 '''
 import os
 import logging
+import shutil
 import cv2
 import functions
 import train_model
@@ -12,8 +13,9 @@ import train_model
 # Change the verbosity of logs by changing the level to one of the following:
 # CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
 # Whatever level is set, that level and all levels more severe it will be logged.
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
 MIN = 5
 DATASET_FOLDER = "dataset"
 CAMINDEX = 0
@@ -29,6 +31,9 @@ name = input("Please enter the name you are booking in with, and then press Ente
 
 cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_FULLSCREEN)
 #cv2.resizeWindow("press space to take a photo", WINDOW_WIDTH, WINDOW_HEIGHT)
+if os.path.exists(DATASET_FOLDER):
+    logger.debug("deleteing dataset folder at %s", DATASET_FOLDER)
+    shutil.rmtree(DATASET_FOLDER)
 
 if not os.path.exists(DATASET_FOLDER):
     logger.debug("Creating dataset folder at %s", DATASET_FOLDER)

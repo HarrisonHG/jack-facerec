@@ -1,13 +1,25 @@
 #! /usr/bin/python
+'''
+trains the model using data in the dat
+'''
 
 # import the necessary packages
 import sys
-from imutils import paths
-import face_recognition
 import pickle
-import cv2
 import os
-def train_model(window_name,progress_callback,frame, window_width):
+import logging
+import cv2
+import face_recognition
+from imutils import paths
+
+# Logging levels affect many dependencies as well as current script.
+# Change the verbosity of logs by changing the level to one of the following:
+# CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
+# Whatever level is set, that level and all levels more severe it will be logged.
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+SAVE_FILE = "encodings.pickle"
+def train_model(window_name,progress_callback,frame, window_width):#pylint: disable = too-many-locals
     '''
     Takes the photos in the folders and uses them to train the model for later recognition.
     takes a callback for a progress bar progress callback must expect the following variables 
@@ -20,30 +32,30 @@ def train_model(window_name,progress_callback,frame, window_width):
     y - the y at which it starts at (the uppermost part of the bar)
     thickness- how far the bar should go downwards
     '''
-    SAVE_FILE = "encodings.pickle"
+
     # our images are located in the dataset folder
-    imagePaths = list(paths.list_images("dataset"))
+    image_paths = list(paths.list_images("dataset"))
     if not os.path.exists(SAVE_FILE):
         data = {"encodings":[],"names":[]}
         logger.info("No encoding file exists running face detection only")
     else:
-        with open(SAVE_FILE, "rb") as f:
-            data = pickle.load(f)
+        with open(SAVE_FILE, "rb") as loadfile:
+            data = pickle.load(loadfile)
     # initialize the list of known encodings and known names
-    knownEncodings = data["encodings"]
-    knownNames = data["names"]
-    
+    known_encodings = data["encodings"]
+    known_names = data["names"]
+
     # loop over the image paths
-    for (i, imagePath) in enumerate(imagePaths):
+    for (i, image_path) in enumerate(image_paths):
         # extract the person name from the image path
-        
-        frame = progress_callback(window_name,frame,window_width,len(imagePaths),i + 1)
-        #print(window_name,frame,window_width,len(imagePaths),i + 1)
-        name = imagePath.split(os.path.sep)[-2]
+
+        frame = progress_callback(window_name,frame,window_width,len(image_paths),i + 1)
+        #print(window_name,frame,window_width,len(image_paths),i + 1)
+        name = image_path.split(os.path.sep)[-2]
 
         # load the input image and convert it from RGB (OpenCV ordering)
         # to dlib ordering (RGB)
-        image = cv2.imread(imagePath)
+        image = cv2.imread(image_path)
         rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # detect the (x, y)-coordinates of the bounding boxes
@@ -58,13 +70,13 @@ def train_model(window_name,progress_callback,frame, window_width):
         for encoding in encodings:
             # add each encoding + name to our set of known names and
             # encodings
-            knownEncodings.append(encoding)
-            knownNames.append(name)
+            known_encodings.append(encoding)
+            known_names.append(name)
     # dump the facial encodings + names to disk
-    data = {"encodings": knownEncodings, "names": knownNames}
-    f = open("encodings.pickle", "wb")
-    f.write(pickle.dumps(data))
-    f.close()
+    data = {"encodings": known_encodings, "names": known_names}
+    with open(SAVE_FILE, "wb") as dumppicklefile:
+        dumppicklefile.write(pickle.dumps(data))
+        dumppicklefile.close()
     return frame
 
 if __name__ == "__main__":
